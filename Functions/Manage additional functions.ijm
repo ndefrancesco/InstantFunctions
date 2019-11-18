@@ -1,11 +1,9 @@
-/* Auxiliary function to document additional functions installed
- * If the function includes lines starting with [tab]//[space]
- * these lines will also be listed as documentation strings
- * 
+/* Functions to manage and document all the additional functions installed
  */
 
 function listFunctions(){
-	// Lists additional functions installed, and any docstrings
+	// Lists additional functions installed, and any docstring lines at the begining
+	// of the code block starting with [tab]//[space]
 	lines = split(call("ij.macro.Interpreter.getAdditionalFunctions"),"\n");
 	isHeader = false;
 	for (i = 0; i < lines.length; i++) {
