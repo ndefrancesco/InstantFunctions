@@ -30,7 +30,7 @@ There are a couple of helper functions to aid in the usage:
 These functions can be run from the REPL pane in the script editor (click on the _persistent_ checkbox), or by launching the Script Interpreter in `Plugins > Scripting > Script Interpreter` and choosing *IJ1 Macros* as language in the dropdown list.
 
 You can include your own functions by adding extra .ijm files in the _**Functions/**_ folder. They will be available after restarting Fiji. Optionally, you can execute the custom function `reloadFunctions()`, which will refresh the all custom functions present. This is particularly handy while testing/developping new functions.
-If you include new functions, it is recommended to add one or more documentation strings rigth after the function declaration. This doc strings will be shown by the Script editor's autocompletition, and will also be listed when calling `listFunctions()`.
+If you include new functions, it is recommended to add one or more documentation strings rigth after the function declaration. This doc strings will be shown by the Script editor's autocompletition, and will also be listed when calling `listFunctions()`. These lines should start with [tab]//[space] to be recognized.
 
 ## Distribution:
 
