@@ -26,7 +26,13 @@ function listFunctions(){
 function reloadFunctions(){
 	// Reloads all the additional functions. Avoids restarting Fiji after
 	// modifiying the code of other functions.
-	call("ij.macro.Interpreter.setAdditionalFunctions", "");
+	libraryPath=getDirectory("macros")+"Library.txt";
+	if(File.exists(libraryPath)) {
+		library= File.openAsString(libraryPath);
+		} else {
+		library="";	
+		}
+	call("ij.macro.Interpreter.setAdditionalFunctions", library);
 	runMacro("AutoRun/install_custom_functions_folder.ijm")
 	}
 	
