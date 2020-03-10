@@ -17,7 +17,8 @@
  * options(separated by spaces):
  * 		plot: plots the fitting function
  * 		bins=NN: sets the number of bins to NN (default is 64)
- * 		params: returns an array instead of a single value: {threshold, mean, SD, r2} 
+ * 		params: returns an array instead of a single value: {threshold, mean, SD, r2}
+ * 		bright: sets an inverted threshold range, for brightfield images
  */
 
 function setGaussianThreshold(sdfactor, options) {
@@ -29,10 +30,12 @@ function setGaussianThreshold(sdfactor, options) {
  	doPlot=false;
  	nBins=64;
  	params=false;
+ 	bright=false;
  	
  	for (i=0; i<options.length; i++){
  		if(options[i]=="plot") doPlot=true;
  		if(options[i]=="params") params=true;
+ 		if(options[i]=="bright") bright=true;
  		else if (startsWith(options[i], "bins=")) nBins=parseInt(substring(options[i], 5));	
  		}
  	
@@ -44,9 +47,25 @@ function setGaussianThreshold(sdfactor, options) {
 	r2=Fit.rSquared();
 	
 	thres=meanBkg+sdfactor*sdBkg;
-	setThreshold(thres, 1e30);
 	
-	if(doPlot) Fit.plot;
+	Array.getStatistics(values, min_x, max_x, mean_x, stdDev_x);
+	Array.getStatistics(counts, min_y, max_y, mean_y, stdDev_y);	
+	xthres=newArray(min_x, thres, thres, max_x);
+	
+	if (bright) {
+		setThreshold(-1e30, thres);
+		ythres=newArray(max_y, max_y, 0, 0);
+		}
+	else {
+		setThreshold(thres, 1e30);
+		ythres=newArray(0, 0, max_y, max_y);
+		}
+	
+	if(doPlot){
+		Fit.plot;
+		Plot.setColor("red");
+		Plot.add("line", xthres, ythres, "theshold");
+		}
 
 	if(params) {
 		return newArray(thres, meanBkg, sdBkg, r2);
