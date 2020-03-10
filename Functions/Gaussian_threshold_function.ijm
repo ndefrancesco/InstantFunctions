@@ -24,7 +24,7 @@
 function setGaussianThreshold(sdfactor, options) {
 	// Fits a Gaussian to the image histogram and uses its mean and standard deviation
 	// (multiplied by sdfactor) to set a threshold, which is also returned.
-	// options (separated by spaces): plot, bins=NN (default 64), params
+	// options (separated by spaces): plot, bins=NN (default 64), params, bright
 	
 	options=split(options, " ");
  	doPlot=false;
